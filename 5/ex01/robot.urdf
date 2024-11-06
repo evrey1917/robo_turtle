@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<robot name="origins">
+  
+  <material name="blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+  
+  <material name="white">
+    <color rgba="1 1 1 0.3"/>
+  </material>
+  
+
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.2" radius="0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.2" radius="0.1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="5.83e-3" ixy="0.0" ixz="0.0" iyy="5.83e-3" iyz="0.0" izz="5e-3"/>
+    </inertial>
+  </link>
+  
+  <link name="gran">
+    <visual>
+      <geometry>
+        <cylinder length="0.25" radius="0.105"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="white"/>
+    </visual>
+  </link>
+  
+  <joint name="base_to_gran" type="fixed">
+    <parent link="base_link"/>
+    <child link="gran"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  
+  
+  <link name="wheel_l_f">
+    <visual>
+      <geometry>
+        <cylinder length="0.005" radius="0.025"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.005" radius="0.025"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="3.13e-7" ixy="0.0" ixz="0.0" iyy="3.13e-7" iyz="0.0" izz="3.13e-7"/>
+    </inertial>
+  </link>
+  
+  <joint name="base_to_wheel_l_f" type="continuous">
+    <axis xyz="0 0 1"/>
+    <origin rpy="0 -1.572 0" xyz="-0.055 0.055 -0.1"/>
+    <parent link="base_link"/>
+    <child link="wheel_l_f"/>
+  </joint>
+  
+  <link name="wheel_r_f">
+    <visual>
+      <geometry>
+        <cylinder length="0.005" radius="0.025"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.005" radius="0.025"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="3.13e-7" ixy="0.0" ixz="0.0" iyy="3.13e-7" iyz="0.0" izz="3.13e-7"/>
+    </inertial>
+  </link>
+  
+  <joint name="base_to_wheel_r_f" type="continuous">
+    <axis xyz="0 0 1"/>
+    <origin rpy="0 -1.572 0" xyz="0.055 0.055 -0.1"/>
+    <parent link="base_link"/>
+    <child link="wheel_r_f"/>
+  </joint>
+  
+  
+  <link name="spher_wheel">
+    <visual>
+      <geometry>
+        <sphere radius="0.025"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.025"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.02"/>
+      <inertia ixx="5e-6" ixy="0.0" ixz="0.0" iyy="5e-6" iyz="0.0" izz="5e-6"/>
+    </inertial>
+  </link>
+  
+  <joint name="base_to_spher_wheel" type="fixed">
+    <parent link="base_link"/>
+    <child link="spher_wheel"/>
+    <origin rpy="0 0 0" xyz="0 -0.07 -0.1"/>
+  </joint>
+  
+</robot>

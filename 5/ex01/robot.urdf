@@ -51,7 +51,7 @@
       <geometry>
         <cylinder length="0.005" radius="0.025"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="0 1.572 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
@@ -65,8 +65,8 @@
   </link>
   
   <joint name="base_to_wheel_l_f" type="continuous">
-    <axis xyz="0 0 1"/>
-    <origin rpy="0 -1.572 0" xyz="-0.055 0.055 -0.1"/>
+    <axis xyz="-1 0 0"/>
+    <origin rpy="0 0 0" xyz="-0.055 0.055 -0.1"/>
     <parent link="base_link"/>
     <child link="wheel_l_f"/>
   </joint>
@@ -76,7 +76,7 @@
       <geometry>
         <cylinder length="0.005" radius="0.025"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="0 1.572 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
@@ -90,8 +90,8 @@
   </link>
   
   <joint name="base_to_wheel_r_f" type="continuous">
-    <axis xyz="0 0 1"/>
-    <origin rpy="0 -1.572 0" xyz="0.055 0.055 -0.1"/>
+    <axis xyz="-1 0 0"/>
+    <origin rpy="0 0 0" xyz="0.055 0.055 -0.1"/>
     <parent link="base_link"/>
     <child link="wheel_r_f"/>
   </joint>

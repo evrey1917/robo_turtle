@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="origins">
+  
+  <material name="blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+  
+  <material name="green">
+    <color rgba="0 0.8 0 1"/>
+  </material>
+  
+  <material name="white">
+    <color rgba="1 1 1 0.3"/>
+  </material>
+  
+
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.2" radius="0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.2" radius="0.1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="5.83e-3" ixy="0.0" ixz="0.0" iyy="5.83e-3" iyz="0.0" izz="5e-3"/>
+    </inertial>
+  </link>
+  
+  <link name="gran">
+    <visual>
+      <geometry>
+        <cylinder length="0.25" radius="0.105"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="white"/>
+    </visual>
+  </link>
+  
+  <joint name="base_to_gran" type="fixed">
+    <parent link="base_link"/>
+    <child link="gran"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  
+  <xacro:property name="wheel_radius" value="0.025" />
+  <xacro:property name="wheel_thick" value="0.005" />
+  <xacro:property name="wheel_x" value="0.055" />
+  <xacro:property name="wheel_y" value="0.055" />
+  <xacro:property name="wheel_z" value="-0.1" />
+  <xacro:property name="disk_mass" value="0.001" />
+  
+  <xacro:macro name="inertial_disk" params="mass radius">
+    <inertial>
+      <mass value="${mass}" />
+        <inertia ixx="${1/2 * mass * radius * radius}" ixy="0.0" ixz="0.0"
+                 iyy="${1/4 * mass * radius * radius}" iyz="0.0"
+                 izz="${1/4 * mass * radius * radius}" />
+    </inertial>
+  </xacro:macro>
+  
+  <xacro:macro name="wheel" params="pref reflect">
+    <link name="wheel_${pref}">
+      <visual>
+        <geometry>
+          <cylinder length="${wheel_thick}" radius="${wheel_radius}"/>
+        </geometry>
+        <origin rpy="0 ${pi/2} 0" xyz="0 0 0"/>
+        <material name="green"/>
+      </visual>
+      <collision>
+        <geometry>
+          <cylinder length="${wheel_thick}" radius="${wheel_radius}"/>
+        </geometry>
+      </collision>
+      <xacro:inertial_disk mass="${disk_mass}" radius="${wheel_radius}"/>
+    </link>
+
+    <joint name="base_to_wheel_${pref}" type="continuous">
+      <axis xyz="-1 0 0"/>
+      <origin rpy="0 0 0" xyz="${reflect * wheel_x} ${wheel_y} ${wheel_z}"/>
+      <parent link="base_link"/>
+      <child link="wheel_${pref}"/>
+    </joint>
+  </xacro:macro>
+  
+  <xacro:wheel pref="left" reflect="-1" />
+  
+  <xacro:wheel pref="right" reflect="1" />
+  
+  
+  <link name="spher_wheel">
+    <visual>
+      <geometry>
+        <sphere radius="0.025"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="green"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.025"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.02"/>
+      <inertia ixx="5e-6" ixy="0.0" ixz="0.0" iyy="5e-6" iyz="0.0" izz="5e-6"/>
+    </inertial>
+  </link>
+  
+  <joint name="base_to_spher_wheel" type="fixed">
+    <parent link="base_link"/>
+    <child link="spher_wheel"/>
+    <origin rpy="0 0 0" xyz="0 -0.07 -0.1"/>
+  </joint>
+  
+</robot>
